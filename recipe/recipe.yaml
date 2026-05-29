@@ -21,26 +21,25 @@ requirements:
     - ${{ compiler('c') }}
     - ${{ stdlib('c') }}
     - if: unix
-      then: autoconf
-    - if: unix
-      then: automake
-    - if: unix
-      then: gettext
-    - if: unix
-      then: gnuconfig
-    - if: unix
-      then: libtool
-    - if: unix
-      then: make
+      then:
+        - autoconf
+        - automake
+        - gettext
+        - gnuconfig
+        - libtool
+        - make
   run_exports:
     - ${{ pin_subpackage(name|lower, upper_bound="x.x.x") }}
 
 tests:
-  - script:
-      - if: unix
-        then: test -f ${PREFIX}/lib/libexif${SHLIB_EXT}
+  - package_contents:
+      lib:
+        - exif
 
 about:
+  homepage: https://libexif.github.io
+  repository: https://github.com/libexif/libexif
+  documentation: https://libexif.github.io/docs.html
   license: LGPL-2.1-only
   license_file: COPYING
   summary: A library for parsing, editing, and saving EXIF data
@@ -54,12 +53,6 @@ about:
     Everything from photo basics like the camera shutter speed and aperture to the GPS location and even the name of the camera owner can be hidden inside each photograph.
     libexif is a library that lets you access that data from within a computer program.
     Some simple applications called **exif** and **gexif** are also supplied alongside libexif that use it to view EXIF data from the command-line or GUI (respectively).
-
-
-
-  homepage: https://libexif.github.io
-  repository: https://github.com/libexif/libexif
-  documentation: https://libexif.github.io/docs.html
 
 extra:
   recipe-maintainers:
